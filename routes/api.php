@@ -12,4 +12,6 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/event/create', 'EventController@createEvent')->middleware('auth:sanctum');
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    Route::post('/event/create', 'EventController@createEvent');
+});
