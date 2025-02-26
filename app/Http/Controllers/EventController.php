@@ -18,4 +18,25 @@ class EventController extends Controller
             201
         );
     }
+
+    public function updateEvent(EventRequest, $request, $id): JsonResponse
+    {
+        $event = Event::findOrFail($id);
+        $event->update($request->validated());
+
+        return response->json(
+            ['event' => new EventResource($event)],
+            201
+        );
+    }
+
+    public function deleteEvent($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->delete();
+
+        return response->response(
+            ["message" => "event deleted"],
+            201);
+    }
 }
