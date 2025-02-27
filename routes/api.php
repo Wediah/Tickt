@@ -14,8 +14,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    Route::get('/events/all', [EventController::class, 'allEvents']);
     Route::post('/event/create', [EventController::class, 'createEvent']);
+    Route::post('/event/{id}/update', [EventController::class, 'updateEvent']);
+    Route::post('/event/{id}/delete', [EventController::class, 'deleteEvent']);
 });
 
 
