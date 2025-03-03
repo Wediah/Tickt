@@ -22,7 +22,15 @@ class CreateTicketsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "" => ""
+            "event_id" => "required|exists:events,id",
+            "ticket_code" => "required|string",
+            "attendee_name" => "required|string",
+            "attendee_email" => "required|string",
+            "price" => "required|numeric",
+            "status" => "required|in:open,closed",
+            "user_id" => "required|exists:users,id",
+            "purchase_at" => "required|date",
+            "used_at" => "required|date",
         ];
     }
 }
